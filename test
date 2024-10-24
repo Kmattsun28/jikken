@@ -1,1 +1,42 @@
-print("Hello World")
+class Word:
+    def __init__(self, term, definition):
+        self.term = term
+        self.definition = definition
+
+    def __str__(self):
+        return f"{self.term}: {self.definition}"
+
+class WordBook:
+    def __init__(self):
+        self.words = []
+
+    def add_word(self, term, definition):
+        word = Word(term, definition)
+        self.words.append(word)
+
+    def remove_word(self, term):
+        self.words = [word for word in self.words if word.term != term]
+
+    def find_word(self, term):
+        for word in self.words:
+            if word.term == term:
+                return word
+        return None
+
+    def display_words(self):
+        for word in self.words:
+            print(word)
+
+# 単語帳のインスタンスを作成
+word_book = WordBook()
+
+# ユーザーから単語と意味を入力
+while True:
+    term = input("単語を入力してください（終了するには 'exit' と入力）: ")
+    if term.lower() == 'exit':
+        break
+    definition = input("その単語の意味を入力してください: ")
+    word_book.add_word(term, definition)
+
+# 単語帳の内容を表示
+word_book.display_words()
