@@ -28,7 +28,7 @@ public class WordTest : MonoBehaviour
 
     private void LoadFromCSV()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "wordbook.csv");
+        string filePath = Path.Combine(Application.persistentDataPath, "wordbook1.csv");
         if (File.Exists(filePath))
         {
             using (StreamReader reader = new StreamReader(filePath))
