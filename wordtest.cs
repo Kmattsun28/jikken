@@ -9,6 +9,7 @@ public class WordBook : MonoBehaviour
     public Button testButton;
     public Button addButton;
     public Button finishButton;
+    public Dropdown wordBookTypeDropdown;
 
     private Dictionary<string, string> words = new Dictionary<string, string>();
     private HashSet<string> testedWords = new HashSet<string>();
@@ -26,7 +27,6 @@ public class WordBook : MonoBehaviour
         string term = inputField.text;
         if (!string.IsNullOrEmpty(term))
         {
-            // ここでAPIを呼び出して単語の意味を取得する
             string meaning = GetWordMeaning(term);
             if (!string.IsNullOrEmpty(meaning))
             {
@@ -90,8 +90,36 @@ public class WordBook : MonoBehaviour
 
     private string GetWordMeaning(string word)
     {
-        // ここでAPIを呼び出して単語の意味を取得するロジックを実装する
+        int selectedIndex = wordBookTypeDropdown.value;
+        switch (selectedIndex)
+        {
+            case 0:
+                return GetWordMeaningJpToEn(word);
+            case 1:
+                return GetWordMeaningEnToJp(word);
+            case 2:
+                return GetWordMeaningCustom(word);
+            default:
+                return null;
+        }
+    }
+
+    private string GetWordMeaningJpToEn(string word)
+    {
+        // ここで和英辞典APIを呼び出して単語の意味を取得するロジックを実装する
         // 仮の意味を返す
-        return "仮の意味";
+        return "仮の意味 (JP to EN)";
+    }
+
+    private string GetWordMeaningEnToJp(string word)
+    {
+        // ここで英和辞典APIを呼び出して単語の意味を取得するロジックを実装する
+        // 仮の意味を返す
+        return "仮の意味 (EN to JP)";
+    }
+
+    private string GetWordMeaningCustom(string word)
+    {
+        return inputField.text;
     }
 }
