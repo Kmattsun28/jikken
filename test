@@ -52,9 +52,9 @@ while True:
     word_book.add_word(term, definition)
 
 # 単語帳の内容を表示
-word_book.display_words()
-
-# ランダムに単語をテスト
+    word_book.display_words()
+    
+    # ランダムに単語をテスト
 while True:
     test = input("ランダムに単語をテストしますか？（はい/いいえ）: ")
     if test.lower() == 'いいえ':
