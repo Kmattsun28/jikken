@@ -13,7 +13,9 @@ public class WordQuiz : MonoBehaviour
 
     private Dictionary<string, string> wordMeanings = new Dictionary<string, string>();
     private List<string> wordList = new List<string>();
+    private List<string> incorrectWords = new List<string>(); // 間違えた単語を格納するリスト
     private int currentIndex = 0;
+    private string currentWord; // currentWord変数を宣言
 
     void Start()
     {
@@ -57,6 +59,7 @@ public class WordQuiz : MonoBehaviour
         }
         else
         {
+            DisplayIncorrectWords();
             questionText.text = "すべての単語を終了しました。";
             inputField.gameObject.SetActive(false);
             submitButton.gameObject.SetActive(false);
@@ -73,9 +76,25 @@ public class WordQuiz : MonoBehaviour
         else
         {
             resultText.text = $"不正解。正しい答えは: {wordMeanings[currentWord]}";
+            incorrectWords.Add(currentWord); // 間違えた単語をリストに追加
         }
         currentIndex++;
         DisplayNextWord();
     }
-}
 
+    private void DisplayIncorrectWords()
+    {
+        if (incorrectWords.Count > 0)
+        {
+            resultText.text = "間違えた単語:\n";
+            foreach (var word in incorrectWords)
+            {
+                resultText.text += $"{word}: {wordMeanings[word]}\n";
+            }
+        }
+        else
+        {
+            resultText.text = "すべての単語に正解しました！";
+        }
+    }
+}
