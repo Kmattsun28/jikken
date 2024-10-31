@@ -8,7 +8,7 @@ public class WordManager : MonoBehaviour
 {
     public Button addWordButton;
     public Button saveToCSVButton;
-    public TMP_InputFieldInputField wordInputField;
+    public TMP_InputField wordInputField;
     public TMP_InputField meaningInputField;
     public TMP_Text wordListText;
 
@@ -43,7 +43,7 @@ public class WordManager : MonoBehaviour
 
     public void SaveToCSV()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "wordbook1.csv");
+        string filePath = Path.Combine(Application.persistentDataPath, "wordbook.csv");
         using (StreamWriter writer = new StreamWriter(filePath))
         {
             foreach (var entry in words)
