@@ -90,9 +90,9 @@ public class WordQuiz : MonoBehaviour
 
     private void CheckAnswer()
     {
-        void start(){
-        string userAnswer = gameObject.Find("InputField").GetComponent<TMP_InputField>();
-        }
+        TMP_InputField inputField = gameObject.Find("InputField").GetComponent<TMP_InputField>();
+        string userAnswer = inputField.text;
+
         if (wordMeanings.ContainsKey(currentWord) && wordMeanings[currentWord] == userAnswer)
         {
             resultText.text = "正解！";
@@ -104,6 +104,7 @@ public class WordQuiz : MonoBehaviour
         }
         currentIndex++;
         DisplayNextWord();
+        inputField.ActivateInputField(); // インプットフィールドのフォーカスを設定
     }
 
     private void DisplayIncorrectWords()
