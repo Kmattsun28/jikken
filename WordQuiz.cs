@@ -90,7 +90,7 @@ public class WordQuiz : MonoBehaviour
 
     private void CheckAnswer()
     {
-        string userAnswer = inputField.text;
+        string userAnswer = gameObject.Find("InputField").GetComponent<TMP_InputField>();
         if (wordMeanings.ContainsKey(currentWord) && wordMeanings[currentWord] == userAnswer)
         {
             resultText.text = "正解！";
