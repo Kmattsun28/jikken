@@ -25,6 +25,14 @@ public class WordQuiz : MonoBehaviour
         DisplayNextWord();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            CheckAnswer();
+        }
+    }
+
     private void LoadWordsFromCSV(string filePath)
     {
         try
