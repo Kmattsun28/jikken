@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
-public class WordBook : MonoBehaviour
+public class WordManager : MonoBehaviour
 {
+    public Button addWordButton;
+    public Button saveToCSVButton;
     public InputField wordInputField;
     public InputField meaningInputField;
     public Text wordListText;
-    public Button addWordButton;
-    public Button saveToCSVButton;
 
     private Dictionary<string, string> words = new Dictionary<string, string>();
 
