@@ -2,14 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class WordManager : MonoBehaviour
 {
     public Button addWordButton;
     public Button saveToCSVButton;
-    public InputField wordInputField;
-    public InputField meaningInputField;
-    public Text wordListText;
+    public TMP_InputFieldInputField wordInputField;
+    public TMP_InputField meaningInputField;
+    public TMP_Text wordListText;
 
     private Dictionary<string, string> words = new Dictionary<string, string>();
 

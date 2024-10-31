@@ -2,15 +2,17 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class WordTest : MonoBehaviour
 {
-    public Text questionText;
-    public InputField answerInputField;
+    public TMP_Text questionText;
+    public TMP_InputField answerInputField;
     public Button submitButton;
-    public Text resultText;
+    public TMP_Text resultText;
     public Button nextButton;
-    public Text incorrectWordsText;
+    public TMP_Text incorrectWordsText;
 
     private Dictionary<string, string> words = new Dictionary<string, string>();
     private List<string> wordList = new List<string>();
