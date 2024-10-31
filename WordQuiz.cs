@@ -80,8 +80,8 @@ public class WordQuiz : MonoBehaviour
 
     private void CheckAnswer()
     {
-        string userAnswer = inputField.text;
-        if (wordMeanings.ContainsKey(currentWord) && wordMeanings[currentWord] == userAnswer)
+        string userAnswer = inputField.text.Trim(); // ユーザーの入力をトリム
+        if (wordMeanings.ContainsKey(currentWord) && string.Equals(wordMeanings[currentWord], userAnswer, System.StringComparison.OrdinalIgnoreCase))
         {
             resultText.text = "正解！";
         }
