@@ -27,6 +27,7 @@ public class WordQuiz : MonoBehaviour
     void Start()
     {
         LoadWordsFromCSV("Assets/wordbook.csv");
+        ShuffleWordList(); // 単語リストをシャッフル
         submitButton.onClick.AddListener(CheckAnswer);
         DisplayNextWord();
     }
@@ -52,6 +53,20 @@ public class WordQuiz : MonoBehaviour
         catch (IOException e)
         {
             Debug.LogError("CSVファイルの読み込み中にエラーが発生しました: " + e.Message);
+        }
+    }
+
+    private void ShuffleWordList()
+    {
+        System.Random rng = new System.Random();
+        int n = wordList.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            string value = wordList[k];
+            wordList[k] = wordList[n];
+            wordList[n] = value;
         }
     }
 
@@ -103,10 +118,5 @@ public class WordQuiz : MonoBehaviour
         {
             resultText.text = "すべての単語に正解しました！";
         }
-    }
-
-    public bool CheckAnswer(string userInput)
-    {
-        return userInput.Equals(correctAnswer, StringComparison.OrdinalIgnoreCase);
     }
 }
