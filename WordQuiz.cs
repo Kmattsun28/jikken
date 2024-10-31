@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using TMPro;
+using System;
 
 public class WordQuiz : MonoBehaviour
 {
@@ -16,21 +17,18 @@ public class WordQuiz : MonoBehaviour
     private List<string> incorrectWords = new List<string>(); // 間違えた単語を格納するリスト
     private int currentIndex = 0;
     private string currentWord; // currentWord変数を宣言
+    private string correctAnswer;
+
+    public WordQuiz(string answer)
+    {
+        correctAnswer = answer;
+    }
 
     void Start()
     {
         LoadWordsFromCSV("Assets/wordbook.csv");
-        ShuffleWordList(); // 単語リストをシャッフル
         submitButton.onClick.AddListener(CheckAnswer);
         DisplayNextWord();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            CheckAnswer();
-        }
     }
 
     private void LoadWordsFromCSV(string filePath)
@@ -57,17 +55,6 @@ public class WordQuiz : MonoBehaviour
         }
     }
 
-    private void ShuffleWordList()
-    {
-        for (int i = 0; i < wordList.Count; i++)
-        {
-            int randomIndex = Random.Range(0, wordList.Count);
-            string temp = wordList[i];
-            wordList[i] = wordList[randomIndex];
-            wordList[randomIndex] = temp;
-        }
-    }
-
     private void DisplayNextWord()
     {
         if (currentIndex < wordList.Count)
@@ -88,8 +75,8 @@ public class WordQuiz : MonoBehaviour
 
     private void CheckAnswer()
     {
-        string userAnswer = inputField.text.Trim(); // ユーザーの入力をトリム
-        if (wordMeanings.ContainsKey(currentWord) && string.Equals(wordMeanings[currentWord], userAnswer, System.StringComparison.OrdinalIgnoreCase))
+        string userAnswer = inputField.text;
+        if (wordMeanings.ContainsKey(currentWord) && wordMeanings[currentWord] == userAnswer)
         {
             resultText.text = "正解！";
         }
@@ -115,6 +102,31 @@ public class WordQuiz : MonoBehaviour
         else
         {
             resultText.text = "すべての単語に正解しました！";
+        }
+    }
+
+    public bool CheckAnswer(string userInput)
+    {
+        return userInput.Equals(correctAnswer, StringComparison.OrdinalIgnoreCase);
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        WordQuiz quiz = new WordQuiz("example");
+
+        Console.WriteLine("答えを入力してください:");
+        string userInput = Console.ReadLine();
+
+        if (quiz.CheckAnswer(userInput))
+        {
+            Console.WriteLine("正解です！");
+        }
+        else
+        {
+            Console.WriteLine("不正解です。");
         }
     }
 }
