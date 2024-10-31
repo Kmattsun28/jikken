@@ -2,39 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class WordQuiz : MonoBehaviour
 {
     // UI Elements
     public TMP_Text questionText;         // 問題文を表示するテキスト
     public TMP_InputField inputField;     // ユーザーが入力するためのフィールド
-    public Button submitButton;        // 回答を送信するボタン
+    public Button submitButton;           // 回答を送信するボタン
     public TMP_Text resultText;           // 結果を表示するテキスト
 
     // 単語とその日本語の意味を格納する辞書
-    private Dictionary<string, string> wordMeanings = new Dictionary<string, string>()
-    {
-        { "apple", "りんご" },
-        { "banana", "バナナ" },
-        { "cat", "猫" },
-        { "dog", "犬" },
-        { "elephant", "象" },
-        { "house", "家" },
-        { "car", "車" },
-        { "book", "本" },
-        { "tree", "木" },
-        { "water", "水" },
-        { "sun", "太陽" },
-        { "moon", "月" },
-        { "mountain", "山" },
-        { "river", "川" },
-        { "fish", "魚" },
-        { "bird", "鳥" },
-        { "flower", "花" },
-        { "computer", "コンピュータ" },
-        { "phone", "電話" },
-        { "chair", "椅子" }
-    };
+    private Dictionary<string, string> wordMeanings = new Dictionary<string, string>();
 
     private List<string> wordList;          // 出題する単語リスト
     private int currentQuestionIndex = 0;   // 現在の問題のインデックス
@@ -42,6 +21,8 @@ public class WordQuiz : MonoBehaviour
 
     void Start()
     {
+        LoadWordsFromCSV("Assets/wordbook1.csv");
+
         // 単語のリストを取得し、シャッフルする
         wordList = new List<string>(wordMeanings.Keys);
         ShuffleList(wordList); // リストをシャッフル
@@ -51,6 +32,29 @@ public class WordQuiz : MonoBehaviour
 
         // ボタンにクリックイベントを追加
         submitButton.onClick.AddListener(CheckAnswer);
+    }
+
+    private void LoadWordsFromCSV(string filePath)
+    {
+        try
+        {
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] values = line.Split(',');
+                    if (values.Length == 2)
+                    {
+                        wordMeanings[values[0]] = values[1];
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("CSVファイルの読み込み中にエラーが発生しました: " + e.Message);
+        }
     }
 
     // リストをシャッフルするメソッド
