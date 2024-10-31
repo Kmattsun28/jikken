@@ -8,7 +8,7 @@ using System;
 public class WordQuiz : MonoBehaviour
 {
     public TMP_Text questionText;         // 問題文を表示するテキスト
-    public TMP_InputField inputField;     // ユーザーが入力するためのフィールド
+    public TMP_InputField inputField;     // 入力するためのフィールド
     public Button submitButton;           // 回答を送信するボタン
     public TMP_Text resultText;           // 結果を表示するテキスト
 
@@ -110,6 +110,8 @@ public class WordQuiz : MonoBehaviour
         return userInput.Equals(correctAnswer, StringComparison.OrdinalIgnoreCase);
     }
 }
+
+using System;
 
 public class Program
 {
