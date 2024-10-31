@@ -20,6 +20,7 @@ public class WordQuiz : MonoBehaviour
     void Start()
     {
         LoadWordsFromCSV("Assets/wordbook.csv");
+        ShuffleWordList(); // 単語リストをシャッフル
         submitButton.onClick.AddListener(CheckAnswer);
         DisplayNextWord();
     }
@@ -45,6 +46,17 @@ public class WordQuiz : MonoBehaviour
         catch (IOException e)
         {
             Debug.LogError("CSVファイルの読み込み中にエラーが発生しました: " + e.Message);
+        }
+    }
+
+    private void ShuffleWordList()
+    {
+        for (int i = 0; i < wordList.Count; i++)
+        {
+            int randomIndex = Random.Range(0, wordList.Count);
+            string temp = wordList[i];
+            wordList[i] = wordList[randomIndex];
+            wordList[randomIndex] = temp;
         }
     }
 
