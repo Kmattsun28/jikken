@@ -12,7 +12,8 @@ public class WordQuiz : MonoBehaviour
     public TMP_Text resultText;           // 結果を表示するテキスト
 
     private Dictionary<string, string> wordMeanings = new Dictionary<string, string>();
-    private string currentWord;
+    private List<string> wordList = new List<string>();
+    private int currentIndex = 0;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class WordQuiz : MonoBehaviour
                     if (values.Length == 2)
                     {
                         wordMeanings[values[0]] = values[1];
+                        wordList.Add(values[0]);
                     }
                 }
             }
@@ -46,17 +48,18 @@ public class WordQuiz : MonoBehaviour
 
     private void DisplayNextWord()
     {
-        if (wordMeanings.Count > 0)
+        if (currentIndex < wordList.Count)
         {
-            int index = Random.Range(0, wordMeanings.Count);
-            currentWord = new List<string>(wordMeanings.Keys)[index];
+            currentWord = wordList[currentIndex];
             questionText.text = $"単語: {currentWord}";
             inputField.text = "";
             resultText.text = "";
         }
         else
         {
-            questionText.text = "単語がありません。";
+            questionText.text = "すべての単語を終了しました。";
+            inputField.gameObject.SetActive(false);
+            submitButton.gameObject.SetActive(false);
         }
     }
 
@@ -71,6 +74,7 @@ public class WordQuiz : MonoBehaviour
         {
             resultText.text = $"不正解。正しい答えは: {wordMeanings[currentWord]}";
         }
+        currentIndex++;
         DisplayNextWord();
     }
 }
